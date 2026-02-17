@@ -29,7 +29,7 @@ public static class NativeMath {
     [DllImport(DLL_NAME)]
     public static extern MyVec2 Vector2Subtract(MyVec2 a, MyVec2 b);
 
-    [DllImport(DLL_NAME, EntryPoint = "Vector2Scale")]
+    [DllImport(DLL_NAME)]
     public static extern MyVec2 Vector2Scale(MyVec2 v, float scale);
 
     [DllImport(DLL_NAME)]
@@ -102,4 +102,7 @@ public static class NativeMath {
 
     [DllImport(DLL_NAME)]
     public static extern MyVec3 Vector3Project(MyVec3 a, MyVec3 b);
+
+    [DllImport(DLL_NAME)]
+    public static extern float MathClamp(float value, float min, float max);
 }

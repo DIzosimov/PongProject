@@ -1,9 +1,12 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
     public MyVec2 velocity;
     public float speed = 5.0f;
+    [SerializeField] private GameObject goal1;
+    [SerializeField] private GameObject goal2;
 
     void Start()
     {
@@ -26,6 +29,24 @@ public class Ball : MonoBehaviour
 
         // Update Position
         transform.position = new UnityEngine.Vector3(newPos.x, newPos.y, 0);
+
+        if (transform.position.x > goal2.transform.position.x+0.5f) 
+        {
+            GameManager.instance.OnGoal(1); // Player 1 scores
+            ResetBall();
+        }
+        else if (transform.position.x < goal1.transform.position.x-0.5f)
+        {
+            GameManager.instance.OnGoal(2); // Player 2 scores
+            ResetBall();
+        }
+    }
+
+    void ResetBall()
+    {
+        transform.position = new UnityEngine.Vector3(0, 0, 0);
+        // This gives the "loser" of the point the first move
+        velocity = NativeMath.Vector2Scale(velocity, -1f);
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
