@@ -32,12 +32,12 @@ public class Ball : MonoBehaviour
 
         if (transform.position.x > goal2.transform.position.x+0.5f) 
         {
-            GameManager.instance.OnGoal(1); // Player 1 scores
+            GameManager.instance.OnGoal(2); // Player 1 scores
             ResetBall();
         }
         else if (transform.position.x < goal1.transform.position.x-0.5f)
         {
-            GameManager.instance.OnGoal(2); // Player 2 scores
+            GameManager.instance.OnGoal(1); // Player 2 scores
             ResetBall();
         }
     }

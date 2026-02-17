@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public int scoreP1 = 0;
     public int scoreP2 = 0;
 
-    public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI scoreTextP1;
+    public TextMeshProUGUI scoreTextP2;
     public GameObject panel;
     public TextMeshProUGUI winnerText;
 
@@ -44,9 +45,22 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Time.timeScale = 1f; //Ensure game is unpaused
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            // Option A: Only restart if the game is over
+            if (isGameOver)
+            {
+                RestartGame();
+            }
+            // Option B: Allow mid-game restart ONLY if holding Shift (The "Hard Reset")
+            else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                RestartGame();
+            }
         }
+    }
+
+    public void RestartGame() {
+        Time.timeScale = 1f; //Ensure game is unpaused
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void OnGoal(int player)
@@ -66,7 +80,8 @@ public class GameManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        if (scoreText != null) scoreText.text = $"{scoreP1} - {scoreP2}";
+        if (scoreTextP1 != null) scoreTextP1.text = scoreP1.ToString();
+        if (scoreTextP2 != null) scoreTextP2.text = scoreP2.ToString();
     }
 
     public void EndGame(int winner)
